@@ -4,9 +4,7 @@ import math
 import PySimpleGUI as sg
 
 
-def equal(args):
-    out = numexpr.evaluate(args)
-    return out
+
 def sqr(args : float):
     out = math.sqrt(args)
     return out
