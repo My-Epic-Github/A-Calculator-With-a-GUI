@@ -40,26 +40,33 @@ while True:
         num_string = ''.join(current_num)
         window['in'].update(num_string)
 
+
     if button in ['+', '-', '*', '/']:
         full_operation.append(''.join(current_num))
         current_num = []
         e = full_operation.append(button)
         window['in'].update(e)
 
+
     if button == '=':
         full_operation.append(''.join(current_num))
         result = eval(''.join(full_operation))
         window['in'].update(result)
         full_operation = []
+        current_num = []
+
+
     elif button == 'C':
         window['in'].update('')
         full_operation = []
+        current_num = []
 
     elif button == '√':
         sqrt = values['in']
         res = float(sqrt)
         res = sqr(res)
         window['in'].update(res)
+        full_operation = []
 
 
 
