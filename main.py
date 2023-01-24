@@ -57,9 +57,10 @@ while True:
 
 
     elif button == 'C':
-        window['in'].update('')
         full_operation = []
         current_num = []
+        window['in'].update('')
+
 
     elif button == '√':
         sqrt = values['in']
