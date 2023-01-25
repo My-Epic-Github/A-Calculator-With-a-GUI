@@ -2,27 +2,30 @@ import operator
 import numexpr
 import math
 import PySimpleGUI as sg
+import winshell
 
+theme = sg.theme('DarkGray11')
 
-
-def sqr(args : float):
+def sqrt(args : float):
     out = math.sqrt(args)
     return out
 def add(args):
     return add(args)
-def percent(args):
-    return
+def sin(args):
+    return math.sin(args)
 
 
+
+desk = winshell.desktop()
 layout = [[sg.Input(key='in', size=31)],
-          [sg.ReadFormButton('C'), sg.ReadFormButton('√')],
+          [sg.ReadFormButton('C'), sg.ReadFormButton('√'), sg.ReadFormButton('sin('), sg.ReadFormButton('**')],
           [sg.ReadFormButton('1'), sg.ReadFormButton('2'), sg.ReadFormButton('3'), sg.ReadFormButton('+')],
           [sg.ReadFormButton('4'), sg.ReadFormButton('5'), sg.ReadFormButton('6'), sg.ReadFormButton('-')],
           [sg.ReadFormButton('7'), sg.ReadFormButton('8'), sg.ReadFormButton('9'), sg.ReadFormButton('*')],
           [sg.ReadFormButton('.'), sg.ReadFormButton('0'), sg.ReadFormButton('='), sg.ReadFormButton('/')]
           ]
 
-window = sg.FlexForm('CALCULATOR', default_button_element_size = (5, 2), auto_size_buttons = False, grab_anywhere = False, resizable=False)
+window = sg.FlexForm('Calculator', default_button_element_size = (5, 2), auto_size_buttons = False, grab_anywhere = False, resizable=False, use_custom_titlebar=True, titlebar_background_color='black', titlebar_text_color='white')
 window.layout(layout)
 
 current_num = []
@@ -65,9 +68,22 @@ while True:
     elif button == '√':
         sqrt = values['in']
         res = float(sqrt)
-        res = sqr(res)
+        res = sqrt(res)
         window['in'].update(res)
         full_operation = []
+
+    elif button == 'sin(':
+        sine = values['in']
+        sine = float(sine)
+        window['in'].update(sin(sine))
+
+    elif button == '**':
+        full_operation.append(''.join(current_num))
+        current_num = []
+        e = full_operation.append(button)
+        window['in'].update(e)
+
+
 
 
 
