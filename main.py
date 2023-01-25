@@ -4,6 +4,9 @@ import math
 import PySimpleGUI as sg
 import winshell
 
+
+
+
 theme = sg.theme('DarkGray11')
 
 def sqrt(args : float):
@@ -33,55 +36,66 @@ full_operation = []
 
 
 while True:
-    button, values = window.read()
+    try:
+        button, values = window.read()
 
-    if button == sg.WINDOW_CLOSED:
-        break
+        if button == sg.WINDOW_CLOSED:
+            break
 
-    if button in ['0', '1', '2', '3', '4', '5', '6', '7' , '8', '9', '.']:
-        current_num.append(button)
-        num_string = ''.join(current_num)
-        window['in'].update(num_string)
-
-
-    if button in ['+', '-', '*', '/']:
-        full_operation.append(''.join(current_num))
-        current_num = []
-        e = full_operation.append(button)
-        window['in'].update(e)
+        if button in ['0', '1', '2', '3', '4', '5', '6', '7' , '8', '9', '.']:
+            current_num.append(button)
+            num_string = ''.join(current_num)
+            window['in'].update(num_string)
 
 
-    if button == '=':
-        full_operation.append(''.join(current_num))
-        result = eval(''.join(full_operation))
-        window['in'].update(result)
-        full_operation = []
-        current_num = []
+        if button in ['+', '-', '*', '/']:
+
+            full_operation.append(''.join(current_num))
+            current_num = []
+            e = full_operation.append(button)
+            window['in'].update(e)
 
 
-    elif button == 'C':
-        full_operation = []
-        current_num = []
-        window['in'].update('')
+
+        if button == '=':
+            full_operation.append(''.join(current_num))
+            result = eval(''.join(full_operation))
+            window['in'].update(result)
+            full_operation = []
+            current_num = []
 
 
-    elif button == '√':
-        sqrt = values['in']
-        res = float(sqrt)
-        res = sqrt(res)
-        window['in'].update(res)
-        full_operation = []
+        elif button == 'C':
+            full_operation = []
+            current_num = []
+            window['in'].update('')
 
-    elif button == 'sin(':
-        sine = values['in']
-        sine = float(sine)
-        window['in'].update(sin(sine))
 
-    elif button == '**':
-        full_operation.append(''.join(current_num))
-        current_num = []
-        e = full_operation.append(button)
-        window['in'].update(e)
+        elif button == '√':
+            sqr = values['in']
+            sqr = float(sqr)
+            res = sqrt(sqr)
+            window['in'].update(res)
+            full_operation = []
+
+        elif button == 'sin(':
+            sine = values['in']
+            sine = float(sine)
+            window['in'].update(sin(sine))
+
+        elif button == '**':
+            full_operation.append(''.join(current_num))
+            current_num = []
+            e = full_operation.append(button)
+            window['in'].update(e)
+    except Exception as err:
+        print(err)
+
+
+
+
+
+
 
 
 
