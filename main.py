@@ -3,6 +3,7 @@ import numexpr
 import math
 import PySimpleGUI as sg
 import winshell
+import output
 
 theme = sg.theme('DarkGray11')
 
@@ -25,7 +26,7 @@ layout = [[sg.Input(key='in', size=31)],
           [sg.ReadFormButton('.'), sg.ReadFormButton('0'), sg.ReadFormButton('='), sg.ReadFormButton('/')]
           ]
 
-window = sg.FlexForm('Calculator', default_button_element_size = (5, 2), auto_size_buttons = False, grab_anywhere = False, resizable=False, use_custom_titlebar=True, titlebar_background_color='black', titlebar_text_color='white')
+window = sg.Window('Calculator', default_button_element_size = (5, 2), auto_size_buttons = False, grab_anywhere = False, resizable=False, use_custom_titlebar=True, titlebar_background_color='black', titlebar_text_color='white', icon=r'C:\Users\meyee\Desktop\A Fucking Calculator\icon.ico')
 window.layout(layout)
 
 current_num = []
@@ -56,7 +57,6 @@ while True:
         result = eval(''.join(full_operation))
         window['in'].update(result)
         full_operation = []
-        current_num = []
 
 
     elif button == 'C':
@@ -66,10 +66,9 @@ while True:
 
 
     elif button == '√':
-        sqrt = values['in']
-        res = float(sqrt)
-        res = sqrt(res)
-        window['in'].update(res)
+        sqr = values['in']
+        sqr = float(sqr)
+        window['in'].update(float(sqrt(sqr)))
         full_operation = []
 
     elif button == 'sin(':
