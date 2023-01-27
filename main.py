@@ -2,12 +2,12 @@ import operator
 import numexpr
 import math
 import PySimpleGUI as sg
-import winshell
+import winshell, win32com.client, os
 import output
 
 
 theme = sg.theme('DarkGray11')
-
+desk = winshell.desktop()
 def sqrt(args : float):
     out = math.sqrt(args)
     return out
@@ -16,11 +16,19 @@ def add(args):
 def sin(args):
     return math.sin(args)
 
+path = os.path.join(desk, 'Calculator.lnk')
+target = f'{desk}\A-Fucking-Calculator-With-a-GUI\dist\Calculator.exe'
+icon = f'{desk}\A-Fucking-Calculator-With-a-GUI\dist\Calculator.exe'
+
+shell = win32com.client.Dispatch('WScript.Shell')
+shortcut = shell.CreateShortCut(path)
+shortcut.Targetpath = target
+shortcut.IconLocation = icon
+shortcut.save()
 
 
-desk = winshell.desktop()
 layout = [[sg.Input(key='in', size=31)],
-          [sg.ReadFormButton('C'), sg.ReadFormButton('√'), sg.ReadFormButton('x^2'), sg.ReadFormButton('**')],
+          [sg.ReadFormButton('C'), sg.ReadFormButton('√'), sg.ReadFormButton('x²'), sg.ReadFormButton('**')],
           [sg.ReadFormButton('1'), sg.ReadFormButton('2'), sg.ReadFormButton('3'), sg.ReadFormButton('+')],
           [sg.ReadFormButton('4'), sg.ReadFormButton('5'), sg.ReadFormButton('6'), sg.ReadFormButton('-')],
           [sg.ReadFormButton('7'), sg.ReadFormButton('8'), sg.ReadFormButton('9'), sg.ReadFormButton('*')],
@@ -73,7 +81,7 @@ while True:
             window['in'].update(float(sqrt(sqr)))
             full_operation = []
 
-        elif button == 'x^2':
+        elif button == 'x²':
             srq = values['in']
             srq = float(srq)
             window['in'].update(srq**2)
